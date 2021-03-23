@@ -1,8 +1,11 @@
-.dashboard-container {
-  height: calc(100vh - 90px);
+.dashboard-container-vertical-spacing {
   background-color: #ebeff7;
+  height: calc(100vh - 90px);
   overflow-y: scroll;
-  padding: 1rem;
+  box-sizing: border-box;
+}
+.dashboard-container {
+  padding: 0 1rem;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -27,14 +30,11 @@
   text-align: center;
 }
 
-@media screen and (min-width: 1000px) {
-  .dashboard-container {
-    gap: 2rem;
-    padding: 2rem;
-  }
-}
 @media screen and (min-width: 800px) {
   .dashboard-container {
+    gap: 2rem;
+    padding: 0 2rem;
     grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 2rem;
   }
 }

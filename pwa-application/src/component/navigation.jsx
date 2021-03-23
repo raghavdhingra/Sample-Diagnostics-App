@@ -43,7 +43,7 @@ const NavigationPanel = ({ state, setState, navigationComponents }) => {
   );
   const changeNavigation = useCallback(
     (index) => {
-      setState({ ...state, navigationIndex: index });
+      setState({ ...state, navigationIndex: index, mobileNavOpen: false });
       history.push(navigationComponents[index].link);
     },
     [history, navigationComponents, setState, state]
