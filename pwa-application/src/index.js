@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Routes from './component/routes.jsx';
 import serviceWorkerInitialised from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
+import './assets/css/default.css';
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

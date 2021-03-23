@@ -1,0 +1,34 @@
+.header {
+  background-color: #f2f5f9;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+  color: #6f7ac3;
+  font-weight: bold;
+}
+.hamburger-icon-container {
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.hamburger-icon-line,
+.hamburger-icon-line-mid {
+  height: 3px;
+  width: 30px;
+  background-color: #444854;
+}
+.hamburger-icon-line-mid {
+  width: 15px;
+}
+.footer {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  color: #3337;
+  background-color: #f2f5f9;
+}

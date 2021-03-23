@@ -3,7 +3,7 @@ import React from 'react';
 const SystemData = () => {
   return (
     <>
-      <h1>System Data</h1>
+      <div className="dashboard-container">yo</div>
     </>
   );
 };

@@ -1,19 +1,52 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import NotFound from './notFound/index.jsx';
-import SystemState from './systemState/index.jsx';
-import SystemData from './systemData/index.jsx';
-import SystemDiagnostics from './systemDiagnostics/index.jsx';
-import '../assets/css/default.css';
+import NotFound from './notFound.jsx';
+import SystemState from './systemState.jsx';
+import SystemData from './systemData.jsx';
+import SystemDiagnostics from './systemDiagnostics.jsx';
+import NavigationPanel from './navigation.jsx';
+import Footer from './footer';
+import Header from './header';
+import '../assets/css/dashboard.css';
+import '../assets/css/diagnostics.css';
 
 const Routes = () => {
+  const [state, setState] = useState({
+    navigationIndex: 0,
+  });
+  const navigationComponents = useMemo(
+    () => [
+      { name: 'System Data', link: '/' },
+      { name: 'System Diagnostics', link: '/system-diagnostics' },
+      { name: 'System State', link: '/system-state' },
+    ],
+    []
+  );
+
   return (
-    <Switch>
-      <Route exact path="/" component={SystemData} />
-      <Route exact path="/system-diagnostics" component={SystemDiagnostics} />
-      <Route exact path="/system-state" component={SystemState} />
-      <Route component={NotFound} />
-    </Switch>
+    <div className="application-container">
+      <NavigationPanel
+        state={state}
+        setState={setState}
+        navigationComponents={navigationComponents}
+      />
+      <div className="diagnostics-base-container">
+        <Header heading={navigationComponents[state.navigationIndex].name} />
+        <div className="dashboard-container">
+          <Switch>
+            <Route exact path="/" component={SystemData} />
+            <Route
+              exact
+              path="/system-diagnostics"
+              component={SystemDiagnostics}
+            />
+            <Route exact path="/system-state" component={SystemState} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+        <Footer />
+      </div>
+    </div>
   );
 };
 
