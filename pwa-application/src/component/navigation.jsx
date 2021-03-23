@@ -78,7 +78,7 @@ const NavigationPanel = ({ state, setState, navigationComponents }) => {
       </div>
       <div className="navigation-footer">
         {socialLinks.map((link, index) => (
-          <div className="social-icons">
+          <div className="social-icons" key={`social-links-${index}`}>
             <a href={link.link} target="_blank" rel="noreferrer">
               <img src={link.image} alt={link.name} width="30px" />
             </a>

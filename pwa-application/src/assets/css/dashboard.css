@@ -35,6 +35,6 @@
     gap: 2rem;
     padding: 0 2rem;
     grid-template-columns: repeat(2, 1fr);
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
   }
 }

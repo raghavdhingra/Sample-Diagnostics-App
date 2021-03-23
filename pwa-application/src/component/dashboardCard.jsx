@@ -14,16 +14,16 @@ const DashboardCard = ({ header = 'Header', value = 20, index = 0 }) => {
               cy="100"
               r="90"
               stroke={colorValue(index)}
-              stroke-width="20"
+              strokeWidth="20"
               fill="#fff0"
             ></circle>
             <text
-              text-anchor="middle"
+              textAnchor="middle"
               x="50%"
               y="58%"
               stroke="#1a2435"
-              stroke-width="0.1rem"
-              font-size="3rem"
+              strokeWidth="0.1rem"
+              fontSize="3rem"
             >
               {value}
             </text>

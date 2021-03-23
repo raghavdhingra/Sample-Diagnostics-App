@@ -9,7 +9,12 @@ const SystemState = () => {
   return (
     <>
       {systemData.map((data, index) => (
-        <DashboardCard index={index} header={data.name} value={data.value} />
+        <DashboardCard
+          key={`system-state-${index}`}
+          index={index}
+          header={data.name}
+          value={data.value}
+        />
       ))}
     </>
   );
