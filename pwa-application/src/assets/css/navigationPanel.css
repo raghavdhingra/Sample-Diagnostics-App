@@ -7,11 +7,13 @@
   box-sizing: border-box;
   box-sizing: border-box;
   height: 100%;
-  /* transform: translateX(-100%); */
   transition: 0.2s ease;
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 1rem;
+}
+.navigation-panel-container-close {
+  transform: translateX(-100%);
 }
 .navigation-header {
   display: grid;

@@ -50,7 +50,11 @@ const NavigationPanel = ({ state, setState, navigationComponents }) => {
   );
 
   return (
-    <div className="navigation-panel-container">
+    <div
+      className={`navigation-panel-container ${
+        state.mobileNavOpen ? '' : 'navigation-panel-container-close'
+      }`}
+    >
       <div className="navigation-header">
         <div className="centralise">
           <img src={CHROMIUM_LOGO} alt="Chromium Logo" width="45px" />

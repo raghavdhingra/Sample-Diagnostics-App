@@ -1,9 +1,12 @@
+* {
+  --trans: 0.2s ease;
+}
 .header {
   background-color: #f2f5f9;
   padding: 0.5rem 1rem;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   gap: 1rem;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -11,24 +14,65 @@
   color: #6f7ac3;
   font-weight: bold;
 }
+.profile-icon {
+  height: 40px;
+  width: 40px;
+  color: #fff;
+  background-color: #19d19c;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 #0005;
+  cursor: pointer;
+}
 .hamburger-icon-container {
+  position: relative;
+  z-index: 2;
   height: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  cursor: pointer;
+  filter: drop-shadow(0 0 3px #fff);
+}
+.collapsable-text {
+  height: 40px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  display: inline-block;
 }
 .hamburger-icon-line,
-.hamburger-icon-line-mid {
+.hamburger-icon-line-mid,
+.hamburger-icon-line-tilt-1,
+.hamburger-icon-line-tilt-2 {
   height: 3px;
   width: 30px;
   background-color: #444854;
+  transition: var(--trans);
 }
 .hamburger-icon-line-mid {
   width: 15px;
+}
+.hamburger-icon-line-mid-close {
+  width: 0;
+  transition: var(--trans);
+}
+.hamburger-icon-line-tilt-1 {
+  transform: translateY(9px) rotate(45deg);
+}
+.hamburger-icon-line-tilt-2 {
+  transform: translateY(-10px) rotate(-45deg);
 }
 .footer {
   padding: 0.5rem 1rem;
   text-align: center;
   color: #3337;
   background-color: #f2f5f9;
+}
+
+@media screen and (min-width: 1000px) {
+  .hamburger-icon-container {
+    display: none;
+  }
 }

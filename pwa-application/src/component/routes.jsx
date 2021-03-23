@@ -13,6 +13,7 @@ import '../assets/css/diagnostics.css';
 const Routes = () => {
   const [state, setState] = useState({
     navigationIndex: 0,
+    mobileNavOpen: false,
   });
   const navigationComponents = useMemo(
     () => [
@@ -31,7 +32,11 @@ const Routes = () => {
         navigationComponents={navigationComponents}
       />
       <div className="diagnostics-base-container">
-        <Header heading={navigationComponents[state.navigationIndex].name} />
+        <Header
+          heading={navigationComponents[state.navigationIndex].name}
+          state={state}
+          setState={setState}
+        />
         <div className="dashboard-container">
           <Switch>
             <Route exact path="/" component={SystemData} />
