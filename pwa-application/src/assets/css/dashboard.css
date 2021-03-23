@@ -5,5 +5,36 @@
   padding: 1rem;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+.system-process-card {
+  height: 300px;
+  width: 100%;
+  border-radius: 30px;
+  padding: 1rem;
+  background-color: #eef1f5;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.034), 0 7px 5px rgba(0, 0, 0, 0.048);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}
+.system-process-header {
+  font-size: 1.5rem;
+}
+.system-process-graph {
+  text-align: center;
+}
+
+@media screen and (min-width: 1000px) {
+  .dashboard-container {
+    gap: 2rem;
+    padding: 2rem;
+  }
+}
+@media screen and (min-width: 800px) {
+  .dashboard-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

@@ -1,9 +1,17 @@
 import React from 'react';
+import DashboardCard from './dashboardCard';
 
 const SystemDiagnostics = () => {
+  const systemData = [
+    { name: 'CPU stress test', value: 'Pass' },
+    { name: 'Battery Charge test', value: 'Fail' },
+    { name: 'RAM usage test', value: 'Pass' },
+  ];
   return (
     <>
-      <h1>System Diagnostics</h1>
+      {systemData.map((data, index) => (
+        <DashboardCard index={index} header={data.name} value={data.value} />
+      ))}
     </>
   );
 };

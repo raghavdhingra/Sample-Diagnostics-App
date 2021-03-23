@@ -7,7 +7,7 @@ const Header = ({ heading, setState, state }) => {
       <div className="centralise">
         <div className="profile-icon centralise">R</div>
       </div>
-      <div className="centralise">{heading}</div>
+      <div className="centralise collapsable-text">{heading}</div>
       <div className="centralise">
         <div
           className="hamburger-icon-container"

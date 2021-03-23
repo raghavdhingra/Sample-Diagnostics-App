@@ -4,7 +4,7 @@ import '../assets/css/header.css';
 const Footer = () => {
   return (
     <div className="footer">
-      <span>Sample Diagnostics Application</span>
+      <div className="collapsable-text">Sample Diagnostics Application</div>
     </div>
   );
 };

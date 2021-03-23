@@ -35,7 +35,6 @@
   filter: drop-shadow(0 0 3px #fff);
 }
 .collapsable-text {
-  height: 40px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden !important;
