@@ -4,9 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="./manifest.json" />
     <title>Chrome Extension</title>
+    <style>
+      .cpu-usage-container {
+        width: 200px;
+        font-size: 1rem;
+      }
+    </style>
   </head>
   <body>
-    yo
+    <div class="cpu-usage-container">
+      <p>CPU Usage: <span id="cpu-usage">0</span></p>
+      <p>
+        <button id="cpu-usage-btn">Get Usage</button>
+      </p>
+    </div>
+    <script src="./index.js"></script>
   </body>
 </html>
