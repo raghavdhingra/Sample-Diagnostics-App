@@ -11,16 +11,16 @@
         width: 200px;
         font-size: 1rem;
       }
+      .cpu-usage-container span {
+        color: red;
+      }
     </style>
   </head>
   <body>
     <div class="cpu-usage-container">
-      <p>Arch Name: <span id="cpu-usage">0</span></p>
-      <p>Model Name: <span id="cpu-usage">0</span></p>
-      <p>Num of Processors: <span id="cpu-usage">0</span></p>
-      <p>CPU Usage: <span id="cpu-usage">0</span></p>
-      <p>CPU Usage: <span id="cpu-usage">0</span></p>
-      <p>CPU Usage: <span id="cpu-usage">0</span></p>
+      <p>Arch Name:<br /><span id="arch-name">-</span></p>
+      <p>Model Name:<br /><span id="model-name">-</span></p>
+      <p>Num of Processors:<br /><span id="no-of-processors">-</span></p>
       <p>
         <button id="cpu-usage-btn">Get Usage</button>
       </p>

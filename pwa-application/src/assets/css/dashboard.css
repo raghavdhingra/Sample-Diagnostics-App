@@ -3,6 +3,7 @@
   height: calc(100vh - 90px);
   overflow-y: scroll;
   box-sizing: border-box;
+  padding: 1rem;
 }
 .dashboard-container {
   padding: 0 1rem;
@@ -35,6 +36,5 @@
     gap: 2rem;
     padding: 0 2rem;
     grid-template-columns: repeat(2, 1fr);
-    padding-bottom: 1rem;
   }
 }

@@ -38,18 +38,16 @@ const Routes = () => {
           setState={setState}
         />
         <div className="dashboard-container-vertical-spacing">
-          <div className="dashboard-container">
-            <Switch>
-              <Route exact path="/" component={SystemData} />
-              <Route
-                exact
-                path="/system-diagnostics"
-                component={SystemDiagnostics}
-              />
-              <Route exact path="/system-state" component={SystemState} />
-              <Route component={NotFound} />
-            </Switch>
-          </div>
+          <Switch>
+            <Route exact path="/" component={SystemData} />
+            <Route
+              exact
+              path="/system-diagnostics"
+              component={SystemDiagnostics}
+            />
+            <Route exact path="/system-state" component={SystemState} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
         <Footer />
       </div>

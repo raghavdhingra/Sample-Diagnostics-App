@@ -1,3 +1,4 @@
 chrome.runtime.onMessage.addListener((request, sender, response) => {
-  response('done');
+  console.log(request);
+  // response('done');
 });

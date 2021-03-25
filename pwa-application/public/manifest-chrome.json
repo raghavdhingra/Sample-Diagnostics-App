@@ -1,14 +1,11 @@
 {
   "short_name": "Diagnostics Extension",
   "name": "Diagnostics Extension | By Raghav Dhingra",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "1.0.0",
   "description": "Sample Diagnostics Application Extension for providing diagnostics stats to PWA application.",
   "icons": {
     "128": "./assets/images/chromium.png"
-  },
-  "externally_connectable": {
-    "matches": ["http://localhost:3000/*"]
   },
   "content_scripts": [
     {
@@ -16,13 +13,13 @@
       "js": ["content.js"]
     }
   ],
-  "browser_action": {
+  "action": {
     "default_icon": "./assets/images/chromium.png",
     "default_popup": "index.html",
     "default_title": "Diagnostics Extension"
   },
   "background": {
-    "scripts": ["back_scripts.js"]
+    "service_worker": "background.js"
   },
   "permissions": [
     "activeTab",
