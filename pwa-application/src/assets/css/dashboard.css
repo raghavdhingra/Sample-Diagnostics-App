@@ -13,7 +13,6 @@
   gap: 1rem;
 }
 .system-process-card {
-  height: 300px;
   width: 100%;
   border-radius: 30px;
   padding: 1rem;
@@ -21,7 +20,7 @@
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.034), 0 7px 5px rgba(0, 0, 0, 0.048);
   box-sizing: border-box;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   gap: 1rem;
 }
 .system-process-header {
@@ -29,6 +28,25 @@
 }
 .system-process-graph {
   text-align: center;
+}
+.card-footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.card-footer-button {
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  text-decoration: underline;
+  /* background-color: #fff; */
+  /* border: 2px solid #0007; */
+  cursor: pointer;
+}
+.color-red {
+  color: rgb(238, 59, 59);
+}
+.color-green {
+  color: rgb(21, 184, 0);
 }
 
 @media screen and (min-width: 800px) {

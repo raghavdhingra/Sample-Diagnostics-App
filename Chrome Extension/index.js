@@ -15,15 +15,6 @@ document.addEventListener(
             // processors.innerText = res.numOfProcessors;
             chrome.tabs.sendMessage(tabs[0].id, { name: 'cpu', res });
           });
-          // chrome.system.storage.getInfo((res) => {
-          //   chrome.tabs.sendMessage(tabs[0].id, { name: 'storage', res });
-          // });
-          // chrome.system.memory.getInfo((res) => {
-          //   chrome.tabs.sendMessage(tabs[0].id, { name: 'memory', res });
-          // });
-          // chrome.system.display.getInfo((res) => {
-          //   chrome.tabs.sendMessage(tabs[0].id, { name: 'display', res });
-          // });
         });
       },
       false

@@ -8,14 +8,16 @@ const SystemState = () => {
   ];
   return (
     <>
-      {systemData.map((data, index) => (
-        <DashboardCard
-          key={`system-state-${index}`}
-          index={index}
-          header={data.name}
-          value={data.value}
-        />
-      ))}
+      <div className="dashboard-container">
+        {systemData.map((data, index) => (
+          <DashboardCard
+            key={`system-state-${index}`}
+            index={index}
+            header={data.name}
+            value={data.value}
+          />
+        ))}
+      </div>
     </>
   );
 };
