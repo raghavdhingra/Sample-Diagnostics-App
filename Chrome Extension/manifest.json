@@ -1,25 +1,20 @@
 {
-  "short_name": "Diagnostics Application",
-  "name": "Diagnostics Application | By Raghav Dhingra",
-  "icons": [
-    {
-      "src": "favicon.svg",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "favicon.svg",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "favicon.svg",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "short_name": "Diagnostics Extension",
+  "name": "Diagnostics Extension | By Raghav Dhingra",
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "description": "Sample Diagnostics Application Extension for providing diagnostics stats to PWA application.",
+  "icons": {
+    "128": "./assets/images/chromium.png"
+  },
+  "content_scripts": [{ "matches": ["<all_urls>"], "js": ["content.js"] }],
+  "action": {
+    "default_icon": "./assets/images/chromium.png",
+    "default_popup": "index.html",
+    "default_title": "Diagnostics Extension"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "tabs", "storage", "system.cpu"]
 }
