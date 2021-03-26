@@ -11,6 +11,10 @@ import '../assets/css/dashboard.css';
 import '../assets/css/diagnostics.css';
 
 const Routes = () => {
+  // const [editorExtensionId, setEditorExtensionId] = useState(
+  //   'nknchceahdhjncibfbjajiiiaepbfdlk'
+  // );
+  const [editorExtensionId, setEditorExtensionId] = useState('yo');
   const [state, setState] = useState({
     navigationIndex: 0,
     mobileNavOpen: false,
@@ -39,13 +43,27 @@ const Routes = () => {
         />
         <div className="dashboard-container-vertical-spacing">
           <Switch>
-            <Route exact path="/" component={SystemData} />
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <SystemData editorExtensionId={editorExtensionId} />
+              )}
+            />
             <Route
               exact
               path="/system-diagnostics"
-              component={SystemDiagnostics}
+              component={() => (
+                <SystemDiagnostics editorExtensionId={editorExtensionId} />
+              )}
             />
-            <Route exact path="/system-state" component={SystemState} />
+            <Route
+              exact
+              path="/system-state"
+              component={() => (
+                <SystemState editorExtensionId={editorExtensionId} />
+              )}
+            />
             <Route component={NotFound} />
           </Switch>
         </div>

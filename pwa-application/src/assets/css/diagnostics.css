@@ -2,3 +2,18 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
+.system-data-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+}
+.fetch-system-data-button {
+  font-size: 1.1rem;
+  background: none;
+  border: 2px solid #0007;
+  color: #000a;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+}

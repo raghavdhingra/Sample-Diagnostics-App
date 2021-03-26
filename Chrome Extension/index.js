@@ -5,22 +5,12 @@ const processors = document.getElementById('no-of-processors');
 document.addEventListener(
   'DOMContentLoaded',
   () => {
-    document.getElementById('cpu-usage-btn').addEventListener(
-      'click',
-      () => {
-        chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-          chrome.system.cpu.getInfo((res) => {
-            // archName.innerText = res.archName;
-            // modelName.innerText = res.modelName;
-            // processors.innerText = res.numOfProcessors;
-            chrome.tabs.sendMessage(tabs[0].id, { name: 'cpu', res });
-          });
-        });
-      },
-      false
-    );
+    chrome.runtime.sendMessage('yo');
+    response(cpuInfo.processors[0].usage);
   },
   false
 );
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {});
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  alert(request);
+});
