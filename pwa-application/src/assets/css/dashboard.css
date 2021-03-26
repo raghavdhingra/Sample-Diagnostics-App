@@ -1,6 +1,5 @@
 .dashboard-container-vertical-spacing {
   background-color: #ebeff7;
-  height: calc(100vh - 90px);
   overflow-y: scroll;
   box-sizing: border-box;
   padding: 1rem;

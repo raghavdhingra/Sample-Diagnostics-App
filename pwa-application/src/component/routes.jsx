@@ -9,12 +9,14 @@ import Footer from './footer';
 import Header from './header';
 import '../assets/css/dashboard.css';
 import '../assets/css/diagnostics.css';
+import ExtensionIDCard from './extensionIdCard.jsx';
 
 const Routes = () => {
   // const [editorExtensionId, setEditorExtensionId] = useState(
   //   'nknchceahdhjncibfbjajiiiaepbfdlk'
   // );
-  const [editorExtensionId, setEditorExtensionId] = useState('yo');
+  const [extensionShow, setExtensionShow] = useState(true);
+  const [editorExtensionId, setEditorExtensionId] = useState('');
   const [state, setState] = useState({
     navigationIndex: 0,
     mobileNavOpen: false,
@@ -41,32 +43,43 @@ const Routes = () => {
           state={state}
           setState={setState}
         />
-        <div className="dashboard-container-vertical-spacing">
-          <Switch>
-            <Route
-              exact
-              path="/"
-              component={() => (
-                <SystemData editorExtensionId={editorExtensionId} />
-              )}
-            />
-            <Route
-              exact
-              path="/system-diagnostics"
-              component={() => (
-                <SystemDiagnostics editorExtensionId={editorExtensionId} />
-              )}
-            />
-            <Route
-              exact
-              path="/system-state"
-              component={() => (
-                <SystemState editorExtensionId={editorExtensionId} />
-              )}
-            />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
+        {editorExtensionId ? (
+          <div className="dashboard-container-vertical-spacing">
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={() => (
+                  <SystemData
+                    editorExtensionId={editorExtensionId}
+                    setEditorExtensionId={setEditorExtensionId}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/system-diagnostics"
+                component={() => (
+                  <SystemDiagnostics editorExtensionId={editorExtensionId} />
+                )}
+              />
+              <Route
+                exact
+                path="/system-state"
+                component={() => (
+                  <SystemState editorExtensionId={editorExtensionId} />
+                )}
+              />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        ) : (
+          <ExtensionIDCard
+            show={!editorExtensionId}
+            extensionId={editorExtensionId}
+            changeExtensionId={setEditorExtensionId}
+          />
+        )}
         <Footer />
       </div>
     </div>

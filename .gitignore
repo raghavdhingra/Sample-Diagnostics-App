@@ -1,2 +1,3 @@
 /pwa-application/node_modules
+/chrome-extension/node_modules
 .DS_Store

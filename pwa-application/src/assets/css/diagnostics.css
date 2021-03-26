@@ -2,18 +2,43 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
+.extension-id-input {
+  padding: 0.1rem 0.6rem;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: 2px solid #0000;
+  transition: 0.2s ease;
+}
+.extension-id-input:focus {
+  outline: none;
+  border: 2px solid #7e4dfc;
+}
 .system-data-header {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: auto 1fr auto;
   gap: 1rem;
 }
+.extension-id-input-edit {
+  background: #0000;
+  border: 2px solid #7f4dfc7e;
+}
 .fetch-system-data-button {
-  font-size: 1.1rem;
-  background: none;
-  border: 2px solid #0007;
-  color: #000a;
+  background: #7e4dfc;
+  color: #fff;
   font-weight: bold;
+  margin: 0 0.5rem;
   border-radius: 5px;
-  padding: 0.2rem 0.6rem;
+  padding: 0.3rem 0.8rem;
+  border: 2px solid #7e4dfc;
   cursor: pointer;
+  box-sizing: border-box;
+  border: none;
+}
+.fetch-system-data-button:focus {
+  outline: none;
+}
+.back-danger {
+  background-color: rgb(255, 65, 65);
 }

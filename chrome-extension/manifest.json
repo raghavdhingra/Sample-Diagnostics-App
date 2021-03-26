@@ -12,7 +12,11 @@
     "128": "./assets/images/chromium.png"
   },
   "externally_connectable": {
-    "matches": ["*://localhost/*"]
+    "matches": [
+      "*://localhost/*",
+      "*://diagnostic-app.netlify.app/*",
+      "*://diagnostics.raghavdhingra.com/*"
+    ]
   },
   "background": {
     "service_worker": "swScripts.js"

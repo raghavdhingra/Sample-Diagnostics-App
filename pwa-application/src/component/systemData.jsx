@@ -1,8 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import DashboardCard from './dashboardCard';
 
-const SystemData = ({ editorExtensionId }) => {
+const SystemData = ({ editorExtensionId, setEditorExtensionId }) => {
   let globalStateInterval;
+  const [localExtensionId, setLocalExtensionId] = useState(editorExtensionId);
+  const [isChange, setIsChange] = useState(false);
   const [stateInterval, setStateInterval] = useState(1);
   // const [fetchState, setFetchState] = useState(false);
   const systemArray = useMemo(
@@ -59,22 +61,63 @@ const SystemData = ({ editorExtensionId }) => {
       <div className="system-data-header">
         <div className="centralise">
           <div>
-            <input type="text" />
-            <div>:pencil:</div>
+            <label>Chrome Extension ID: </label>
+            <input
+              type="text"
+              value={localExtensionId}
+              className={`extension-id-input ${
+                isChange ? '' : 'extension-id-input-edit'
+              }`}
+              placeholder="Chrome Extension ID"
+              readOnly={!isChange}
+              onChange={(e) => setLocalExtensionId(e.target.value)}
+            />
           </div>
         </div>
-        <select value={stateInterval} onChange={(e) => changeInterval(e)}>
-          <option value="1">1 second</option>
-          <option value="2">2 second</option>
-          <option value="3">3 second</option>
-          <option value="5">5 second</option>
-          <option value="10">10 second</option>
-          <option value="15">15 second</option>
-          <option value="20">20 second</option>
-          <option value="30">30 second</option>
-          <option value="60">60 second</option>
-        </select>
-        <button className="fetch-system-data-button">Check extension</button>
+        <div>
+          {isChange ? (
+            <>
+              <button
+                className="fetch-system-data-button"
+                onClick={() => {
+                  setIsChange(false);
+                  setEditorExtensionId(localExtensionId);
+                }}
+              >
+                Save
+              </button>
+              <button
+                className="fetch-system-data-button back-danger"
+                onClick={() => {
+                  setIsChange(false);
+                  setLocalExtensionId(editorExtensionId);
+                }}
+              >
+                Cancel
+              </button>
+            </>
+          ) : (
+            <button
+              className="fetch-system-data-button"
+              onClick={() => setIsChange(true)}
+            >
+              Change extension id
+            </button>
+          )}
+        </div>
+        <div className="centralise">
+          <select value={stateInterval} onChange={(e) => changeInterval(e)}>
+            <option value="1">1 second</option>
+            <option value="2">2 second</option>
+            <option value="3">3 second</option>
+            <option value="5">5 second</option>
+            <option value="10">10 second</option>
+            <option value="15">15 second</option>
+            <option value="20">20 second</option>
+            <option value="30">30 second</option>
+            <option value="60">60 second</option>
+          </select>
+        </div>
       </div>
       <div className="dashboard-container">
         {systemData.map((data, index) => (

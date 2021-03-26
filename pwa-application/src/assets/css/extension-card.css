@@ -1,0 +1,20 @@
+.extension-card-overlay {
+  background-color: #ebeff7;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.full-height {
+  height: 100%;
+}
+.extension-card-container {
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 0.5rem;
+}
+.extension-header {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+}
