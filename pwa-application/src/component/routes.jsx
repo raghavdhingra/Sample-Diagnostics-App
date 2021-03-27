@@ -12,11 +12,11 @@ import '../assets/css/diagnostics.css';
 import ExtensionIDCard from './extensionIdCard.jsx';
 
 const Routes = () => {
-  // const [editorExtensionId, setEditorExtensionId] = useState(
-  //   'nknchceahdhjncibfbjajiiiaepbfdlk'
-  // );
+  const [editorExtensionId, setEditorExtensionId] = useState(
+    'nknchceahdhjncibfbjajiiiaepbfdlk'
+  );
   const [extensionShow, setExtensionShow] = useState(true);
-  const [editorExtensionId, setEditorExtensionId] = useState('');
+  // const [editorExtensionId, setEditorExtensionId] = useState('');
   const [state, setState] = useState({
     navigationIndex: 0,
     mobileNavOpen: false,
@@ -43,7 +43,7 @@ const Routes = () => {
           state={state}
           setState={setState}
         />
-        {editorExtensionId ? (
+        {editorExtensionId && !extensionShow ? (
           <div className="dashboard-container-vertical-spacing">
             <Switch>
               <Route
@@ -52,7 +52,7 @@ const Routes = () => {
                 component={() => (
                   <SystemData
                     editorExtensionId={editorExtensionId}
-                    setEditorExtensionId={setEditorExtensionId}
+                    changeExtensionId={setExtensionShow}
                   />
                 )}
               />
@@ -75,9 +75,9 @@ const Routes = () => {
           </div>
         ) : (
           <ExtensionIDCard
-            show={!editorExtensionId}
             extensionId={editorExtensionId}
             changeExtensionId={setEditorExtensionId}
+            changeExtensionShow={setExtensionShow}
           />
         )}
         <Footer />

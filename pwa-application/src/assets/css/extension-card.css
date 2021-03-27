@@ -12,9 +12,34 @@
   margin: 0 auto;
   background: #fff;
   padding: 0.5rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 3px 5px 10px 0 #0001;
+}
+.help-icon {
+  cursor: pointer;
 }
 .extension-header {
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 0.02rem;
+}
+.extension-hr {
+  width: 100%;
+  height: 1px;
+  background: #0002;
+  margin: 0.4rem 0;
+}
+.extension-footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  font-size: 0.8rem;
+}
+.extension-content-container {
+  margin: 0.5rem 0;
+}
+.extension-content-input {
+  width: 100%;
+  padding: 0.3rem 0.4rem;
+  box-sizing: border-box;
 }

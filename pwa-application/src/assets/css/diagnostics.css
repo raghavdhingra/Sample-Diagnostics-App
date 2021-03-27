@@ -2,27 +2,20 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
-.extension-id-input {
-  padding: 0.1rem 0.6rem;
-  border: none;
+.dashboard-timer-select {
+  padding: 0.2rem 0.4rem;
   box-sizing: border-box;
-  border-radius: 10px;
-  font-size: 1rem;
-  border: 2px solid #0000;
-  transition: 0.2s ease;
+  border-radius: 5px;
 }
-.extension-id-input:focus {
-  outline: none;
-  border: 2px solid #7e4dfc;
-}
-.system-data-header {
+.dashboard-header {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1fr;
 }
-.extension-id-input-edit {
-  background: #0000;
-  border: 2px solid #7f4dfc7e;
+.dashboard-left-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
 }
 .fetch-system-data-button {
   background: #7e4dfc;
@@ -33,12 +26,23 @@
   padding: 0.3rem 0.8rem;
   border: 2px solid #7e4dfc;
   cursor: pointer;
+  transition: 0.2s ease;
   box-sizing: border-box;
+  display: inline-block;
   border: none;
+}
+.fetch-system-data-button:active {
+  transform: scale(0.95);
 }
 .fetch-system-data-button:focus {
   outline: none;
 }
 .back-danger {
   background-color: rgb(255, 65, 65);
+}
+
+@media screen and (min-width: 600px) {
+  .dashboard-header {
+    grid-template-columns: 1fr auto;
+  }
 }

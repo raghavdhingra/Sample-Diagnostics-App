@@ -1,6 +1,7 @@
 .dashboard-container-vertical-spacing {
   background-color: #ebeff7;
   overflow-y: scroll;
+  height: calc(100vh - 90px);
   box-sizing: border-box;
   padding: 1rem;
 }
@@ -9,7 +10,6 @@
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 1rem;
 }
 .system-process-card {
   width: 100%;
@@ -19,19 +19,43 @@
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.034), 0 7px 5px rgba(0, 0, 0, 0.048);
   box-sizing: border-box;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 1rem;
+  margin: 1rem 0;
 }
 .system-process-header {
   font-size: 1.5rem;
 }
 .system-process-graph {
-  text-align: center;
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  gap: 1rem;
+}
+.align-center {
+  width: max-content;
+  margin: 0 auto;
+}
+.system-process-graph-3 {
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
 }
 .card-footer-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+.dashboard-table {
+  width: 100%;
+}
+.dashboard-table td {
+  padding: 0.2rem;
+}
+.dashboard-table thead tr {
+  background-color: #0003;
+}
+.dashboard-table tbody tr:nth-child(2n) {
+  background-color: #0001;
 }
 .card-footer-button {
   border-radius: 5px;
@@ -53,5 +77,11 @@
     gap: 2rem;
     padding: 0 2rem;
     grid-template-columns: repeat(2, 1fr);
+  }
+  .system-process-graph {
+    grid-template-columns: repeat(2, auto);
+  }
+  .system-process-graph-3 {
+    grid-template-columns: repeat(3, auto);
   }
 }
