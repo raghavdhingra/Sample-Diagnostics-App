@@ -13,35 +13,53 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
     []
   );
 
+  // CPU Information
+  const [cpuState, setCpuState] = useState({
+    archName: '',
+    features: [],
+    modelName: '',
+    numOfProcessors: 0,
+    processors: [],
+  });
+
+  // Memory Inforamation
   const [memoryState, setMemoryState] = useState({
     total: 0,
     available: 0,
   });
   const [usedMemorySeries, setUsedMemorySeries] = useState([]);
 
+  // Storage Inforamation
   const [storageUsage, setStorageUsage] = useState([]);
 
-  const processData = ({ cpuInfo, memoryInfo, storageInfo }) => {
-    // Memory Info
-    if (memoryInfo) {
-      let usedPercentage =
-        (toGiB(memoryInfo.capacity - memoryInfo.availableCapacity) /
-          toGiB(memoryInfo.capacity)) *
-        100;
-      usedPercentage = Math.round(usedPercentage * 1e2) / 1e2;
-      setMemoryState({
-        available: memoryInfo.availableCapacity,
-        total: memoryInfo.capacity,
-      });
-      usedMemorySeries.push(usedPercentage);
-      if (usedMemorySeries.length > 10) usedMemorySeries.shift();
-      setUsedMemorySeries(usedMemorySeries);
-    }
+  const processData = useCallback(
+    ({ cpuInfo, memoryInfo, storageInfo }) => {
+      // CPU Info
+      setCpuState({ ...cpuInfo });
+      console.log(cpuInfo);
 
-    // Storage Info
-    if (storageInfo) setStorageUsage(storageInfo);
-  };
-  const getSystemInfo = () => {
+      // Memory Info
+      if (memoryInfo) {
+        let usedPercentage =
+          (toGiB(memoryInfo.capacity - memoryInfo.availableCapacity) /
+            toGiB(memoryInfo.capacity)) *
+          100;
+        usedPercentage = Math.round(usedPercentage * 1e2) / 1e2;
+        setMemoryState({
+          available: memoryInfo.availableCapacity,
+          total: memoryInfo.capacity,
+        });
+        usedMemorySeries.push(usedPercentage);
+        if (usedMemorySeries.length > 10) usedMemorySeries.shift();
+        setUsedMemorySeries(usedMemorySeries);
+      }
+
+      // Storage Info
+      if (storageInfo) setStorageUsage(storageInfo);
+    },
+    [usedMemorySeries]
+  );
+  const getSystemInfo = useCallback(() => {
     return new Promise((res, rej) => {
       try {
         window.chrome.runtime.sendMessage(
@@ -59,7 +77,8 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
         return rej('Invalid Extension ID');
       }
     });
-  };
+    // eslint-disable-next-line
+  }, [editorExtensionId, systemArray]);
 
   const changeInterval = (e) => {
     let timeVal = parseInt(e.target.value);
@@ -68,13 +87,16 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
     setStateInterval(timeVal);
   };
   useEffect(() => {
-    let yo = async () => {
-      let response = await getSystemInfo();
-      processData(response);
+    let initialSetupFunction = async () => {
+      try {
+        let response = await getSystemInfo();
+        processData(response);
+      } catch (err) {
+        alert(err);
+      }
     };
-    yo();
-    // eslint-disable-next-line
-  }, []);
+    initialSetupFunction();
+  }, [processData, getSystemInfo]);
 
   useEffect(() => {
     if (editorExtensionId) {
@@ -85,16 +107,21 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
           let response = await getSystemInfo();
           processData(response);
         } catch (err) {
+          clearInterval(globalStateInterval);
           alert(err);
         }
       }, stateInterval * 1000);
       setGlobalStateInterval(newglobalStateInterval);
     }
     // eslint-disable-next-line
-  }, [stateInterval, editorExtensionId]);
+  }, [stateInterval, editorExtensionId, getSystemInfo, processData]);
 
   const toGiB = (byte) => {
     return Math.round((byte / (1024 * 1024 * 1024)) * 1e2) / 1e2;
+  };
+  const convert4Pt = (givenValue, totalValue) => {
+    let percent = (givenValue / totalValue) * 100;
+    return Math.round(percent * 1e4) / 1e4;
   };
 
   return (
@@ -131,8 +158,43 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
         </div>
       </div>
       <div className="">
-        <DashboardCard header="CPU Usage">
-          <div className="system-process-graph"></div>
+        <DashboardCard header="CPU Information">
+          <div className="system-process-graph">
+            <div>
+              <span className="cpu-info-header">{cpuState.modelName}</span>
+              <span className="cpu-info-content">({cpuState.archName})</span>
+            </div>
+          </div>
+          <div>Number of Processors: {cpuState.numOfProcessors}</div>
+          <div>
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <td>Processor</td>
+                  <td>Idle</td>
+                  <td>Kernel</td>
+                  <td>user</td>
+                </tr>
+              </thead>
+              <tbody>
+                {cpuState && cpuState.processors && cpuState.processors.length
+                  ? cpuState.processors.map((process, index) => {
+                      process = process.usage;
+                      return (
+                        <tr key={`processor-${index}`}>
+                          <td>
+                            {index + 1} of {cpuState.numOfProcessors}
+                          </td>
+                          <td>{convert4Pt(process.idle, process.total)}%</td>
+                          <td>{convert4Pt(process.kernel, process.total)}%</td>
+                          <td>{convert4Pt(process.user, process.total)}%</td>
+                        </tr>
+                      );
+                    })
+                  : null}
+              </tbody>
+            </table>
+          </div>
         </DashboardCard>
         <DashboardCard header="RAM Usage">
           <div className="system-process-graph-3">
@@ -150,6 +212,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
                 series={[
                   { name: 'Memory Utilization', data: usedMemorySeries },
                 ]}
+                title={'Memory Utilization'}
                 id="memory-utilization"
               />
             </div>
@@ -176,7 +239,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
               </thead>
               <tbody>
                 {storageUsage.map((storage, index) => (
-                  <tr>
+                  <tr key={`table-${index}`}>
                     <td>{storage.name}</td>
                     <td>{storage.type}</td>
                     <td>{toGiB(storage.capacity)} GiB</td>

@@ -24,6 +24,15 @@
 .system-process-header {
   font-size: 1.5rem;
 }
+.cpu-info-header {
+  font-size: 1.2rem;
+  color: #000a;
+  margin-right: 0.5rem;
+}
+.cpu-info-content {
+  font-size: 1rem;
+  color: #0006;
+}
 .system-process-graph {
   margin: 1rem 0;
   display: grid;

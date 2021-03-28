@@ -13,7 +13,7 @@ import ExtensionIDCard from './extensionIdCard.jsx';
 
 const Routes = () => {
   const [editorExtensionId, setEditorExtensionId] = useState(
-    'nknchceahdhjncibfbjajiiiaepbfdlk'
+    'iibgeajafkpplflmefinfnkcmlbflmck'
   );
   const [extensionShow, setExtensionShow] = useState(true);
   // const [editorExtensionId, setEditorExtensionId] = useState('');

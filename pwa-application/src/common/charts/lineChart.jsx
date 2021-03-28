@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-const LineChart = ({ series, max, id }) => {
+const LineChart = ({ series, max, id, title }) => {
   let state = {
     options: {
       responsive: [
@@ -51,7 +51,7 @@ const LineChart = ({ series, max, id }) => {
         min: 0,
       },
       title: {
-        text: 'CPU Utilization',
+        text: title,
         align: 'left',
       },
     },
@@ -59,7 +59,7 @@ const LineChart = ({ series, max, id }) => {
 
   useEffect(() => {
     window.ApexCharts.exec(id, 'updateSeries', series);
-  }, [series]);
+  }, [series, id]);
 
   return (
     <>
