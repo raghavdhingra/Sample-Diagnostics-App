@@ -8,7 +8,7 @@ const DashboardCard = ({ header = 'Header', value = 20, index = 0 }) => {
     <div className="system-process-card">
       <div className="system-process-header">{header}</div>
       <div className="extension-hr"></div>
-      <div className="system-process-graph">
+      <div className="system-process-graph-mid">
         <svg height="200" width="200">
           <g id="UrTavla">
             <circle

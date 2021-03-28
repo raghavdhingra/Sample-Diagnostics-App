@@ -6,23 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="./manifest.json" />
     <title>Chrome Extension</title>
-    <style>
-      .cpu-usage-container {
-        width: 200px;
-        font-size: 1rem;
-      }
-      .cpu-usage-container span {
-        color: red;
-      }
-    </style>
+    <link href="./main.css" rel="stylesheet" />
   </head>
   <body>
     <div class="cpu-usage-container">
-      <p>Arch Name:<br /><span id="arch-name">-</span></p>
-      <p>Model Name:<br /><span id="model-name">-</span></p>
-      <p>Num of Processors:<br /><span id="no-of-processors">-</span></p>
+      <div class="cpu-info-header">
+        <h3>CPU Information</h3>
+        <select id="select-timer">
+          <option value="1">1 second</option>
+          <option value="2">2 second</option>
+          <option value="3">3 second</option>
+          <option value="5">5 second</option>
+          <option value="10">10 second</option>
+          <option value="30">30 second</option>
+          <option value="60">60 second</option>
+        </select>
+      </div>
+      <table class="cpu-description-table">
+        <tbody>
+          <tr>
+            <td>Model</td>
+            <td id="model-name"></td>
+          </tr>
+
+          <tr>
+            <td>Architecture</td>
+            <td id="arch-name"></td>
+          </tr>
+
+          <tr>
+            <td>No. of Processors</td>
+            <td id="no-of-processors"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="extension-hr"></div>
+      <h3>RAM Utilization</h3>
+      <table class="cpu-description-table">
+        <tbody>
+          <tr>
+            <td>Total Memory</td>
+            <td>Used</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td><span id="ram-memory-total"></span> GiB</td>
+            <td><span id="ram-memory-used"></span> GiB</td>
+            <td><span id="ram-memory-free"></span> GiB</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="extension-hr"></div>
     </div>
-    <button id="helpBtn">HELP</button>
+    <div class="help-btn" id="helpBtn">HELP</div>
     <script src="./index.js"></script>
   </body>
 </html>

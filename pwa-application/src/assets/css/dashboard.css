@@ -33,6 +33,9 @@
   font-size: 1rem;
   color: #0006;
 }
+.system-process-graph-mid {
+  margin: 1rem auto;
+}
 .system-process-graph {
   margin: 1rem 0;
   display: grid;
@@ -79,6 +82,9 @@
 }
 .color-green {
   color: rgb(21, 184, 0);
+}
+.processor-chart-container {
+  margin: 1rem 0;
 }
 
 @media screen and (min-width: 800px) {

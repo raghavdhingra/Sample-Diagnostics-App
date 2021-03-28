@@ -21,6 +21,8 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
     numOfProcessors: 0,
     processors: [],
   });
+  const [processorKernelState, setProcessorKernelState] = useState(null);
+  const [processorUserState, setProcessorUserState] = useState(null);
 
   // Memory Inforamation
   const [memoryState, setMemoryState] = useState({
@@ -32,11 +34,52 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
   // Storage Inforamation
   const [storageUsage, setStorageUsage] = useState([]);
 
+  const updateProcessorState = useCallback(
+    (processorArray) => {
+      if (processorKernelState && processorUserState) {
+        processorArray.forEach((processor, index) => {
+          let usage = processor.usage;
+          processorKernelState.forEach((kernel) => {
+            if (kernel.name === `Processor ${index + 1}`)
+              kernel.data.push(convert2Pt(usage.kernel, usage.total));
+            if (kernel.data.length > 10) kernel.data.shift();
+          });
+          processorUserState.forEach((user) => {
+            if (user.name === `Processor ${index + 1}`)
+              user.data.push(convert2Pt(usage.user, usage.total));
+            if (user.data.length > 10) user.data.shift();
+          });
+        });
+        setProcessorKernelState(processorKernelState);
+        setProcessorUserState(processorUserState);
+      } else {
+        let seriesKernelData = processorArray.map((processor, index) => {
+          let usage = processor.usage;
+          return {
+            name: `Processor ${index + 1}`,
+            data: [convert2Pt(usage.kernel, usage.total)],
+          };
+        });
+        let seriesUserData = processorArray.map((processor, index) => {
+          let usage = processor.usage;
+          return {
+            name: `Processor ${index + 1}`,
+            data: [convert2Pt(usage.user, usage.total)],
+          };
+        });
+        setProcessorKernelState(seriesKernelData);
+        setProcessorUserState(seriesUserData);
+      }
+      return;
+    },
+    [processorKernelState, processorUserState]
+  );
+
   const processData = useCallback(
     ({ cpuInfo, memoryInfo, storageInfo }) => {
       // CPU Info
       setCpuState({ ...cpuInfo });
-      console.log(cpuInfo);
+      updateProcessorState(cpuInfo.processors);
 
       // Memory Info
       if (memoryInfo) {
@@ -57,7 +100,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
       // Storage Info
       if (storageInfo) setStorageUsage(storageInfo);
     },
-    [usedMemorySeries]
+    [usedMemorySeries, updateProcessorState]
   );
   const getSystemInfo = useCallback(() => {
     return new Promise((res, rej) => {
@@ -78,7 +121,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
       }
     });
     // eslint-disable-next-line
-  }, [editorExtensionId, systemArray]);
+  }, [editorExtensionId]);
 
   const changeInterval = (e) => {
     let timeVal = parseInt(e.target.value);
@@ -92,11 +135,14 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
         let response = await getSystemInfo();
         processData(response);
       } catch (err) {
+        clearInterval(globalStateInterval);
+        setGlobalStateInterval(null);
         alert(err);
       }
     };
     initialSetupFunction();
-  }, [processData, getSystemInfo]);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (editorExtensionId) {
@@ -106,15 +152,14 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
         try {
           let response = await getSystemInfo();
           processData(response);
+          setGlobalStateInterval(newglobalStateInterval);
         } catch (err) {
           clearInterval(globalStateInterval);
-          alert(err);
         }
       }, stateInterval * 1000);
-      setGlobalStateInterval(newglobalStateInterval);
     }
     // eslint-disable-next-line
-  }, [stateInterval, editorExtensionId, getSystemInfo, processData]);
+  }, []);
 
   const toGiB = (byte) => {
     return Math.round((byte / (1024 * 1024 * 1024)) * 1e2) / 1e2;
@@ -122,6 +167,10 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
   const convert4Pt = (givenValue, totalValue) => {
     let percent = (givenValue / totalValue) * 100;
     return Math.round(percent * 1e4) / 1e4;
+  };
+  const convert2Pt = (givenValue, totalValue) => {
+    let percent = (givenValue / totalValue) * 100;
+    return Math.round(percent * 1e2) / 1e2;
   };
 
   return (
@@ -197,6 +246,22 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
             </div>
           </div>
           <div>Number of Processors: {cpuState.numOfProcessors}</div>
+          <div className="system-process-graph">
+            {processorKernelState && (
+              <LineChart
+                title="Kernel Utilization"
+                id="processor-kerne;-chart"
+                series={processorKernelState}
+              />
+            )}
+            {processorUserState && (
+              <LineChart
+                title="User Utilization"
+                id="processor-user-chart"
+                series={processorUserState}
+              />
+            )}
+          </div>
           <div>
             <table className="dashboard-table">
               <thead>
