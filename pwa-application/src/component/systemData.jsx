@@ -158,6 +158,37 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
         </div>
       </div>
       <div className="">
+        <DashboardCard header="RAM Usage">
+          <div className="system-process-graph-3">
+            <div>Total Memory Available: {toGiB(memoryState.total)} GiB</div>
+            <div>Available Memory: {toGiB(memoryState.available)} GiB</div>
+            <div>
+              Used Memory: {toGiB(memoryState.total - memoryState.available)}{' '}
+              GiB
+            </div>
+          </div>
+          <div className="extension-hr"></div>
+          <div className="system-process-graph">
+            <div className="align-center">
+              <LineChart
+                series={[
+                  { name: 'Memory Utilization', data: usedMemorySeries },
+                ]}
+                title={'Memory Utilization'}
+                id="memory-utilization"
+              />
+            </div>
+            <div className="align-center">
+              <PieChart
+                series={[
+                  toGiB(memoryState.available),
+                  toGiB(memoryState.total - memoryState.available),
+                ]}
+                label={['Available memory', 'Used memory']}
+              />
+            </div>
+          </div>
+        </DashboardCard>
         <DashboardCard header="CPU Information">
           <div className="system-process-graph">
             <div>
@@ -194,37 +225,6 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
                   : null}
               </tbody>
             </table>
-          </div>
-        </DashboardCard>
-        <DashboardCard header="RAM Usage">
-          <div className="system-process-graph-3">
-            <div>Total Memory Available: {toGiB(memoryState.total)} GiB</div>
-            <div>Available Memory: {toGiB(memoryState.available)} GiB</div>
-            <div>
-              Used Memory: {toGiB(memoryState.total - memoryState.available)}{' '}
-              GiB
-            </div>
-          </div>
-          <div className="extension-hr"></div>
-          <div className="system-process-graph">
-            <div className="align-center">
-              <LineChart
-                series={[
-                  { name: 'Memory Utilization', data: usedMemorySeries },
-                ]}
-                title={'Memory Utilization'}
-                id="memory-utilization"
-              />
-            </div>
-            <div className="align-center">
-              <PieChart
-                series={[
-                  toGiB(memoryState.available),
-                  toGiB(memoryState.total - memoryState.available),
-                ]}
-                label={['Available memory', 'Used memory']}
-              />
-            </div>
           </div>
         </DashboardCard>
         <DashboardCard series={memoryState} chart="pie" header="Storage Usage">
