@@ -12,11 +12,9 @@ import '../assets/css/diagnostics.css';
 import ExtensionIDCard from './extensionIdCard.jsx';
 
 const Routes = () => {
-  const [editorExtensionId, setEditorExtensionId] = useState(
-    'iibgeajafkpplflmefinfnkcmlbflmck'
-  );
+  const [editorExtensionId, setEditorExtensionId] = useState('');
   const [extensionShow, setExtensionShow] = useState(true);
-  // const [editorExtensionId, setEditorExtensionId] = useState('');
+
   const [state, setState] = useState({
     navigationIndex: 0,
     mobileNavOpen: false,

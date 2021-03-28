@@ -23,7 +23,3 @@ const help = () => {
   );
 };
 document.getElementById('helpBtn').addEventListener('click', help);
-
-// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//   alert(JSON.stringify(request));
-// });
