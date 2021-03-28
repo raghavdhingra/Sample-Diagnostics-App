@@ -4,6 +4,10 @@ chrome.runtime.onMessageExternal.addListener(
     sendResponse(data);
   }
 );
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  getProcessedData(request).then((data) => sendResponse(data));
+  return true;
+});
 
 const getProcessedData = async (request) => {
   let data = {};

@@ -5,12 +5,25 @@ const processors = document.getElementById('no-of-processors');
 document.addEventListener(
   'DOMContentLoaded',
   () => {
-    chrome.runtime.sendMessage('yo');
-    response(cpuInfo.processors[0].usage);
+    const request = {
+      message: ['GET_CPU_INFO', 'GET_STORAGE_INFO', 'GET_MEMORY_INFO'],
+    };
+    chrome.runtime.sendMessage(request, (res) => {
+      archName.innerText = res.cpuInfo.archName;
+      modelName.innerText = res.cpuInfo.modelName;
+      processors.innerText = res.cpuInfo.numOfProcessors;
+    });
   },
   false
 );
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  alert(request);
-});
+const help = () => {
+  alert(
+    'Go to chrome://extensions > Turn ON Developer Mode > Install Diagnostics Extension > Get ID\nGo to diagnostics.raghavdhingra.com'
+  );
+};
+document.getElementById('helpBtn').addEventListener('click', help);
+
+// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+//   alert(JSON.stringify(request));
+// });

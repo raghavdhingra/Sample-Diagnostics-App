@@ -18,6 +18,11 @@
       "*://diagnostics.raghavdhingra.com/*"
     ]
   },
+  "action": {
+    "default_icon": "./assets/images/chromium.png",
+    "default_popup": "index.html",
+    "default_title": "Diagnostics Extension"
+  },
   "background": {
     "service_worker": "swScripts.js"
   },
