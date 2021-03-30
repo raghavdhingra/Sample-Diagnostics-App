@@ -21,6 +21,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
     numOfProcessors: 0,
     processors: [],
   });
+
   const [processorKernelState, setProcessorKernelState] = useState(null);
   const [processorUserState, setProcessorUserState] = useState(null);
 
@@ -34,52 +35,10 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
   // Storage Inforamation
   const [storageUsage, setStorageUsage] = useState([]);
 
-  const updateProcessorState = useCallback(
-    (processorArray) => {
-      if (processorKernelState && processorUserState) {
-        processorArray.forEach((processor, index) => {
-          let usage = processor.usage;
-          processorKernelState.forEach((kernel) => {
-            if (kernel.name === `Processor ${index + 1}`)
-              kernel.data.push(convert2Pt(usage.kernel, usage.total));
-            if (kernel.data.length > 10) kernel.data.shift();
-          });
-          processorUserState.forEach((user) => {
-            if (user.name === `Processor ${index + 1}`)
-              user.data.push(convert2Pt(usage.user, usage.total));
-            if (user.data.length > 10) user.data.shift();
-          });
-        });
-        setProcessorKernelState(processorKernelState);
-        setProcessorUserState(processorUserState);
-      } else {
-        let seriesKernelData = processorArray.map((processor, index) => {
-          let usage = processor.usage;
-          return {
-            name: `Processor ${index + 1}`,
-            data: [convert2Pt(usage.kernel, usage.total)],
-          };
-        });
-        let seriesUserData = processorArray.map((processor, index) => {
-          let usage = processor.usage;
-          return {
-            name: `Processor ${index + 1}`,
-            data: [convert2Pt(usage.user, usage.total)],
-          };
-        });
-        setProcessorKernelState(seriesKernelData);
-        setProcessorUserState(seriesUserData);
-      }
-      return;
-    },
-    [processorKernelState, processorUserState]
-  );
-
   const processData = useCallback(
     ({ cpuInfo, memoryInfo, storageInfo }) => {
       // CPU Info
       setCpuState({ ...cpuInfo });
-      updateProcessorState(cpuInfo.processors);
 
       // Memory Info
       if (memoryInfo) {
@@ -94,13 +53,13 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
         });
         usedMemorySeries.push(usedPercentage);
         if (usedMemorySeries.length > 10) usedMemorySeries.shift();
-        setUsedMemorySeries(usedMemorySeries);
+        setUsedMemorySeries([...usedMemorySeries]);
       }
 
       // Storage Info
       if (storageInfo) setStorageUsage(storageInfo);
     },
-    [usedMemorySeries, updateProcessorState]
+    [usedMemorySeries]
   );
   const getSystemInfo = useCallback(() => {
     return new Promise((res, rej) => {
@@ -143,6 +102,51 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
     initialSetupFunction();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    let processorsInfo = cpuState.processors;
+    if (processorKernelState && processorKernelState.length) {
+      let newKernelProcessorInfo = [],
+        newUserProcessorInfo = [];
+      processorsInfo.forEach((processor, index) => {
+        let usage = processor.usage;
+        newKernelProcessorInfo = [...processorKernelState];
+        newKernelProcessorInfo.forEach((newProcessor) => {
+          if (newProcessor.name === `Processor ${index}`) {
+            newProcessor.data.push(convert2Pt(usage.kernel, usage.total));
+            if (newKernelProcessorInfo.length > 10) newProcessor.unshift();
+          }
+        });
+        newUserProcessorInfo = [...processorUserState];
+        newUserProcessorInfo.forEach((newProcessor) => {
+          if (newProcessor.name === `Processor ${index}`) {
+            newProcessor.data.push(convert2Pt(usage.user, usage.total));
+            if (newUserProcessorInfo.length > 10) newProcessor.unshift();
+          }
+        });
+      });
+      setProcessorKernelState([...newKernelProcessorInfo]);
+      setProcessorUserState([...newUserProcessorInfo]);
+    } else {
+      const newKernelProcessorInfo = processorsInfo.map((processor, index) => {
+        let usage = processor.usage;
+        return {
+          name: `Processor ${index}`,
+          data: [convert2Pt(usage.kernel, usage.total)],
+        };
+      });
+      setProcessorKernelState([...newKernelProcessorInfo]);
+      const newUserProcessorInfo = processorsInfo.map((processor, index) => {
+        let usage = processor.usage;
+        return {
+          name: `Processor ${index}`,
+          data: [convert2Pt(usage.user, usage.total)],
+        };
+      });
+      setProcessorUserState([...newUserProcessorInfo]);
+    }
+    // eslint-disable-next-line
+  }, [cpuState]);
 
   useEffect(() => {
     if (editorExtensionId) {
@@ -247,14 +251,14 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
           </div>
           <div>Number of Processors: {cpuState.numOfProcessors}</div>
           <div className="system-process-graph">
-            {processorKernelState && (
+            {processorKernelState && processorKernelState.length && (
               <LineChart
                 title="Kernel Utilization"
                 id="processor-kerne;-chart"
                 series={processorKernelState}
               />
             )}
-            {processorUserState && (
+            {processorUserState && processorUserState.length && (
               <LineChart
                 title="User Utilization"
                 id="processor-user-chart"

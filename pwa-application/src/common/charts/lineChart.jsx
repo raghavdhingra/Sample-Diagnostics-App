@@ -58,9 +58,10 @@ const LineChart = ({ series, max, id, title }) => {
   };
 
   useEffect(() => {
-    window.ApexCharts.exec(id, 'updateSeries', series);
+    if (series && series.length)
+      window.ApexCharts.exec(id, 'updateSeries', series);
     // eslint-disable-next-line
-  }, [series, id, series[0].data.length]);
+  }, [series, id]);
 
   return (
     <>
