@@ -1,5 +1,6 @@
 .navigation-panel-container {
   position: fixed;
+  z-index: 999;
   background-color: #7e4dfc;
   border-radius: 0 20px 20px 0;
   color: #fff;

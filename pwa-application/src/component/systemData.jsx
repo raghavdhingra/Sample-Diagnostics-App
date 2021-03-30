@@ -1,23 +1,23 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import EDIT_ICON from '../assets/images/edit.svg';
-import DashboardCard from './utilisationCard';
-import LineChart from '../common/charts/lineChart';
-import PieChart from '../common/charts/pieChart';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import EDIT_ICON from "../assets/images/edit.svg";
+import DashboardCard from "./utilisationCard";
+import LineChart from "../common/charts/lineChart";
+import PieChart from "../common/charts/pieChart";
 
 const SystemData = ({ editorExtensionId, changeExtensionId }) => {
   let [globalStateInterval, setGlobalStateInterval] = useState(null);
 
   const [stateInterval, setStateInterval] = useState(5);
   const systemArray = useMemo(
-    () => ['GET_CPU_INFO', 'GET_STORAGE_INFO', 'GET_MEMORY_INFO'],
+    () => ["GET_CPU_INFO", "GET_STORAGE_INFO", "GET_MEMORY_INFO"],
     []
   );
 
   // CPU Information
   const [cpuState, setCpuState] = useState({
-    archName: '',
+    archName: "",
     features: [],
-    modelName: '',
+    modelName: "",
     numOfProcessors: 0,
     processors: [],
   });
@@ -76,7 +76,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
       } catch (err) {
         clearInterval(globalStateInterval);
         setGlobalStateInterval(null);
-        return rej('Invalid Extension ID');
+        return rej("Invalid Extension ID");
       }
     });
     // eslint-disable-next-line
@@ -216,7 +216,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
             <div>Total Memory Available: {toGiB(memoryState.total)} GiB</div>
             <div>Available Memory: {toGiB(memoryState.available)} GiB</div>
             <div>
-              Used Memory: {toGiB(memoryState.total - memoryState.available)}{' '}
+              Used Memory: {toGiB(memoryState.total - memoryState.available)}{" "}
               GiB
             </div>
           </div>
@@ -225,9 +225,9 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
             <div className="align-center">
               <LineChart
                 series={[
-                  { name: 'Memory Utilization', data: usedMemorySeries },
+                  { name: "Memory Utilization", data: usedMemorySeries },
                 ]}
-                title={'Memory Utilization'}
+                title={"Memory Utilization"}
                 id="memory-utilization"
               />
             </div>
@@ -237,7 +237,7 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
                   toGiB(memoryState.available),
                   toGiB(memoryState.total - memoryState.available),
                 ]}
-                label={['Available memory', 'Used memory']}
+                label={["Available memory", "Used memory"]}
               />
             </div>
           </div>

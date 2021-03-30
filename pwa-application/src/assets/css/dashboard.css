@@ -1,7 +1,7 @@
 .dashboard-container-vertical-spacing {
   background-color: #ebeff7;
   overflow-y: scroll;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 98px);
   box-sizing: border-box;
   padding: 1rem;
 }
@@ -23,6 +23,10 @@
 }
 .system-process-header {
   font-size: 1.5rem;
+}
+.table-storage-name {
+  max-width: 100px !important;
+  overflow: hidden;
 }
 .cpu-info-header {
   font-size: 1.2rem;
