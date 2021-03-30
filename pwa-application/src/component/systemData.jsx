@@ -114,14 +114,14 @@ const SystemData = ({ editorExtensionId, changeExtensionId }) => {
         newKernelProcessorInfo.forEach((newProcessor) => {
           if (newProcessor.name === `Processor ${index}`) {
             newProcessor.data.push(convert2Pt(usage.kernel, usage.total));
-            if (newKernelProcessorInfo.length > 10) newProcessor.unshift();
+            if (newKernelProcessorInfo.length > 10) newProcessor.shift();
           }
         });
         newUserProcessorInfo = [...processorUserState];
         newUserProcessorInfo.forEach((newProcessor) => {
           if (newProcessor.name === `Processor ${index}`) {
             newProcessor.data.push(convert2Pt(usage.user, usage.total));
-            if (newUserProcessorInfo.length > 10) newProcessor.unshift();
+            if (newUserProcessorInfo.length > 10) newProcessor.shift();
           }
         });
       });
